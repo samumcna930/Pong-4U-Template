@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.gameUpdateLoop = new System.Windows.Forms.Timer(this.components);
             this.startLabel = new System.Windows.Forms.Label();
+            this.player2Name = new System.Windows.Forms.Label();
+            this.player1Name = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gameUpdateLoop
@@ -45,24 +47,48 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.startLabel.Font = new System.Drawing.Font("Courier New", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startLabel.ForeColor = System.Drawing.Color.White;
-            this.startLabel.Location = new System.Drawing.Point(158, 175);
-            this.startLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.startLabel.Location = new System.Drawing.Point(168, 175);
+            this.startLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.startLabel.Name = "startLabel";
-            this.startLabel.Size = new System.Drawing.Size(615, 143);
+            this.startLabel.Size = new System.Drawing.Size(582, 146);
             this.startLabel.TabIndex = 0;
             this.startLabel.Text = "Press Space To Start";
             this.startLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // player2Name
+            // 
+            this.player2Name.BackColor = System.Drawing.Color.Transparent;
+            this.player2Name.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.player2Name.ForeColor = System.Drawing.Color.Turquoise;
+            this.player2Name.Location = new System.Drawing.Point(640, 9);
+            this.player2Name.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.player2Name.Name = "player2Name";
+            this.player2Name.Size = new System.Drawing.Size(254, 54);
+            this.player2Name.TabIndex = 1;
+            // 
+            // player1Name
+            // 
+            this.player1Name.BackColor = System.Drawing.Color.Transparent;
+            this.player1Name.Font = new System.Drawing.Font("Courier New", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.player1Name.ForeColor = System.Drawing.Color.Red;
+            this.player1Name.Location = new System.Drawing.Point(16, 11);
+            this.player1Name.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.player1Name.Name = "player1Name";
+            this.player1Name.Size = new System.Drawing.Size(340, 54);
+            this.player1Name.TabIndex = 2;
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(924, 692);
+            this.ClientSize = new System.Drawing.Size(924, 696);
+            this.Controls.Add(this.player1Name);
+            this.Controls.Add(this.player2Name);
             this.Controls.Add(this.startLabel);
             this.DoubleBuffered = true;
+            this.Font = new System.Drawing.Font("Courier New", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pong";
@@ -77,6 +103,8 @@
 
         private System.Windows.Forms.Timer gameUpdateLoop;
         private System.Windows.Forms.Label startLabel;
+        private System.Windows.Forms.Label player2Name;
+        private System.Windows.Forms.Label player1Name;
     }
 }
 
