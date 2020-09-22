@@ -37,7 +37,7 @@ namespace Pong
         SoundPlayer collisionSound = new SoundPlayer(Properties.Resources.collision);
 
         //determines whether a key is being pressed or not
-        Boolean aKeyDown, zKeyDown, jKeyDown, mKeyDown;
+        Boolean aKeyDown, zKeyDown, jKeyDown, mKeyDown, qKeyDown, eKeyDown;
 
         // check to see if a new game can be started
         Boolean newGameOk = true;
@@ -47,6 +47,7 @@ namespace Pong
 
         // check to see if AI boolean is true
         Boolean botPad = false;
+
         //ball directions, speed, and rectangle
         Boolean ballMoveRight = true;
         Boolean ballMoveDown = true;
@@ -57,13 +58,19 @@ namespace Pong
         const int PADDLE_SPEED = 12;
         Rectangle p1, p2;
 
-        //power up coordinate and rectangle
+        //power up rectangle
         Rectangle powerUp;
+
+        // check if power up is held
+        Boolean powerSpeed;
+        Boolean powerPaddle;
         //player and game scores
         int player1Score = 0;
         int player2Score = 0;
         int gameWinScore = 3;  // number of points needed to win game
 
+        // Counter for duration of power ups
+        int gameTick;
         #endregion
 
         public Form1()
@@ -111,9 +118,15 @@ namespace Pong
                 case Keys.V:
                     if (newGameOk)
                     {
-
+                        botPad = true;
                         SetParameters();
                     }
+                    break;
+                case Keys.Q:
+                    qKeyDown = true;
+                    break;
+                case Keys.E:
+                    eKeyDown = true;
                     break;
             }
         }
@@ -136,6 +149,12 @@ namespace Pong
                 case Keys.M:
                     mKeyDown = false;
                     break;
+                case Keys.Q:
+                    qKeyDown = false;
+                    break;
+                case Keys.E:
+                    eKeyDown = false;
+                    break;
             }
         }
 
@@ -149,8 +168,6 @@ namespace Pong
                 player1Score = player2Score = 0;
                 newGameOk = false;
                 startLabel.Visible = false;
-                player1Name.Text = "Player 1 " + player1Score;
-                player2Name.Text = "Player 2 " + player2Score;
                 gameUpdateLoop.Start();
 
             }
@@ -170,8 +187,8 @@ namespace Pong
             p2.Y = this.Height / 2 - p2.Height / 2;
 
             // TODO set Width and Height of ball
-            ball.Width = 12;
-            ball.Height = 12;
+            ball.Width = 20;
+            ball.Height = 20;
             // TODO set starting X position for ball to middle of screen, (use this.Width and ball.Width)
             ball.X = (this.Width / 2) - (ball.Width / 2);
             // TODO set starting Y position for ball to middle of screen, (use this.Height and ball.Height)
@@ -184,6 +201,7 @@ namespace Pong
         /// </summary>
         private void gameUpdateLoop_Tick(object sender, EventArgs e)
         {
+            gameTick++;
             #region update ball position
 
             // TODO create code to move ball either left or right based on ballMoveRight and using BALL_SPEED
@@ -199,6 +217,7 @@ namespace Pong
             { ball.Y = ball.Y + BALL_SPEED; }
             else { ball.Y = ball.Y - BALL_SPEED; }
             #endregion
+
             #region update paddle positions
 
             if (aKeyDown == true && p1.Y > 0)
@@ -213,15 +232,25 @@ namespace Pong
                 p1.Y = p1.Y + PADDLE_SPEED;
             }
 
-            if (jKeyDown == true && p2.Y > 0)
+            if (jKeyDown == true && p2.Y > 0 && botPad == false)
             { p2.Y = p2.Y - PADDLE_SPEED; }
 
-            else if (mKeyDown == true && p2.Y + p2.Height < this.Height)
+            else if (mKeyDown == true && p2.Y + p2.Height < this.Height && botPad == false)
             { p2.Y = p2.Y + PADDLE_SPEED; }
             // TODO create an if statement and code to move player 2 paddle up using p2.Y and PADDLE_SPEED
 
             // TODO create an if statement and code to move player 2 paddle down using p2.Y and PADDLE_SPEED
 
+            #endregion
+
+            #region power up option
+            //if(qKeyDown && powerSpeed)
+            //{ BALL_SPEED = BALL_SPEED * 2; }
+            //else if(gameTick >= 186)
+            //{BALL_SPEED = BALL_SPEED / 2; powerSpeed = false;}
+
+            //if(eKeyDown && powerPaddle)
+            //{ }
             #endregion
 
             #region ball collision with top and bottom lines
@@ -261,7 +290,6 @@ namespace Pong
                 scoreSound.Play();
                 // --- update player 2 score
                 player2Score++;
-                player2Name.Text = "Player 2 " + player2Score;
                 // TODO use if statement to check to see if player 2 has won the game. If true run 
                 if (player2Score == gameWinScore)
                 { GameOver("PLayer 2"); }
@@ -272,18 +300,25 @@ namespace Pong
 
             // TODO same as above but this time check for collision with the right wall
 
-            #endregion
+
 
             if (ball.X > this.Width)
             {
                 player1Score++;
-                scoreSound.Play(); player1Name.Text = "Player 1 " + player1Score;
+                scoreSound.Play();
                 if (player1Score == gameWinScore)
                 { GameOver("Player 1"); }
                 else { ballMoveRight = !ballMoveRight; SetParameters(); }
                 Thread.Sleep(1000);
             }
+            #endregion
 
+            #region AI processiong
+            if (botPad)
+            { p2.Y = ball.Y - 25; }
+            // ask how to make the AI paddle flow to the ball instead of instant spawning 
+            // ask if the method of power up duration and usage is correct 
+            #endregion
             //refresh the screen, which causes the Form1_Paint method to run
             this.Refresh();
         }
@@ -313,6 +348,8 @@ namespace Pong
             // TODO draw ball using FillRectangle
             e.Graphics.FillEllipse(whiteBrush, ball);
             // TODO draw scores to the screen using DrawString
+            e.Graphics.DrawString("Player 1 score " + player1Score, drawFont, redBrush, 20, 10);
+            e.Graphics.DrawString("Player 2 score " + player2Score, drawFont, blueBrush, this.Width - 180, 10);
         }
 
     }
