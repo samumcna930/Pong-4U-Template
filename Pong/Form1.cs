@@ -182,10 +182,10 @@ namespace Pong
             }
 
             //set starting position for paddles on new game and point scored 
-            const int PADDLE_EDGE = 20;  // buffer distance between screen edge and paddle            
+            const int PADDLE_EDGE = 15;  // buffer distance between screen edge and paddle            
 
             p1.Width = p2.Width = 10;    //height for both paddles set the same
-            p1.Height = p2.Height = 70;  //width for both paddles set the same
+            p1.Height = p2.Height = 90;  //width for both paddles set the same
 
             //p1 starting position
             p1.X = PADDLE_EDGE;
@@ -196,8 +196,8 @@ namespace Pong
             p2.Y = this.Height / 2 - p2.Height / 2;
 
             // TODO set Width and Height of ball
-            ball.Width = 20;
-            ball.Height = 20;
+            ball.Width = 15;
+            ball.Height = 15;
             // TODO set starting X position for ball to middle of screen, (use this.Width and ball.Width)
             ball.X = (this.Width / 2) - (ball.Width / 2);
             // TODO set starting Y position for ball to middle of screen, (use this.Height and ball.Height)
