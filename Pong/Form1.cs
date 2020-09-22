@@ -70,6 +70,7 @@ namespace Pong
         // check if power up is held
         Boolean powerSpeed;
         //Boolean powerPaddle;
+
         //player and game scores
         int player1Score = 0;
         int player2Score = 0;
@@ -336,6 +337,7 @@ namespace Pong
             #region AI processing
             if (botPad && ball.X > (this.Width - 250) && p2.Y > (ball.Y - 25))
             { p2.Y = p2.Y - PADDLE_SPEED; }
+
             else if (botPad && ball.X > (this.Width - 250) && p2.Y < (ball.Y - 25))
             { p2.Y = p2.Y + PADDLE_SPEED; }
             // ask how to make the AI paddle flow to the ball instead of instant spawning //FIXED
