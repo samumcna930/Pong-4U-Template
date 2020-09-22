@@ -48,9 +48,9 @@
             this.startLabel.Location = new System.Drawing.Point(144, 197);
             this.startLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.startLabel.Name = "startLabel";
-            this.startLabel.Size = new System.Drawing.Size(582, 50);
+            this.startLabel.Size = new System.Drawing.Size(647, 74);
             this.startLabel.TabIndex = 0;
-            this.startLabel.Text = "Press Space To Start";
+            this.startLabel.Text = "Press Space To Start Single Player V for challenge";
             this.startLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1

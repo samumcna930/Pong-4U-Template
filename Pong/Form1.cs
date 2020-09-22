@@ -51,11 +51,11 @@ namespace Pong
         //ball directions, speed, and rectangle
         Boolean ballMoveRight = true;
         Boolean ballMoveDown = true;
-        int BALL_SPEED = 8;
-        Rectangle ball;
+        float BALL_SPEED = 8;
+        RectangleF ball;
 
         //paddle speeds and rectangles
-        const int PADDLE_SPEED = 12;
+        int PADDLE_SPEED = 12;
         Rectangle p1, p2;
 
         //power up rectangle
@@ -201,7 +201,11 @@ namespace Pong
         /// </summary>
         private void gameUpdateLoop_Tick(object sender, EventArgs e)
         {
-            gameTick++;
+            #region increasing ball speed 
+            if (botPad)
+            { gameTick++; if (gameTick == 62) { BALL_SPEED += (float)3; PADDLE_SPEED += 2; } }
+            #endregion
+
             #region update ball position
 
             // TODO create code to move ball either left or right based on ballMoveRight and using BALL_SPEED
@@ -313,13 +317,15 @@ namespace Pong
             }
             #endregion
 
-            #region AI processiong
-            if (botPad)
-            { p2.Y = ball.Y - 25; }
-            // ask how to make the AI paddle flow to the ball instead of instant spawning 
-            // ask if the method of power up duration and usage is correct 
+            #region AI processing
+            if (botPad && ball.X > (this.Width - 300) && p2.Y > (ball.Y - 25))
+            { p2.Y = p2.Y - PADDLE_SPEED; }
+            else if (botPad && ball.X > (this.Width - 300) && p2.Y < (ball.Y - 25))
+            { p2.Y = p2.Y + PADDLE_SPEED; }
+            // ask how to make the AI paddle flow to the ball instead of instant spawning //FIXED
+            // ask if the method of power up duration and usage is correct //NOT ENOUGH TIME
             #endregion
-            //refresh the screen, which causes the Form1_Paint method to run
+
             this.Refresh();
         }
 
